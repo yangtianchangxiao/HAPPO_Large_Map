@@ -463,10 +463,9 @@ class SearchGrid(gym.Env):
             # 当评价多机时，用这个
             action = drone_act_list[k]
             # 根据操作计算出机器人的新位置
-            if len(action) == 1: # 获取机器人要移动的方向
-                direction = action[0]
-            elif len(action) == 4:
-                direction = np.argmax(action)  # 获取机器人要移动的方向
+            direction = action[0]
+            # elif len(action) == 4:
+            #     direction = np.argmax(action)  # 获取机器人要移动的方向
             # print("the direction is ", direction)
 
             # 如果智能体陷入了周围都是被探索的区域的困境，那么我们就要判断当前动作是否有助于帮助智能体脱离困境·
@@ -1219,7 +1218,7 @@ class SearchGrid(gym.Env):
         self.collision_threshold = 2
         self.offsets = [(0, 1), (0, -1), (1, 0), (-1, 0)]  # 上下左右四个方向的偏移
         self.map_size = 60
-        self.drone_num = 5
+        self.drone_num = 2
         self.available_actions = np.ones((self.drone_num, 4))
         # Rescue paragrams
         # 已探索区域的比例
@@ -1293,10 +1292,10 @@ class SearchGrid(gym.Env):
         self.collision = np.zeros(self.drone_num) # 记录which drone take an action that will cause collision
         self.random_index = np.random.randint(0, self.map_num)
         self.erosion_prob = 0
-        # self.choose_map = self.map_set[self.random_index]
+        self.choose_map = self.map_set[self.random_index]
         # # 使用 NumPy 切片，隔一个采样一个
-        # self.choose_map = self.choose_map[::2, ::2]
-        self.choose_map = self.get_Map()
+        self.choose_map = self.choose_map[::2, ::2]
+        # self.choose_map = self.get_Map()
         
         # if np.random.rand() >self.erosion_prob:
         #     self.choose_map = self.erode_and_add_obstacles(map=self.choose_map, erosion_probability=0.2, obstacle_probability=0.03, erosion_times=1)

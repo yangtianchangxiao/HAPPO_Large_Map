@@ -1,0 +1,1 @@
+python ./scripts/train/train_smac.py --add_dropout --dropout_prob 0.1 --num_mini_batch 32 --nn_type attention_resnet --episode_length 190 --ppo_epoch 5 --n_rollout_threads 32 --entropy_coef 0.01 --gamma 0.99 --batch_expand_times 2 --transpose_time 1 --hidden_size 512 --max_grad_norm 0.5 --d_model 32 --nhead 4 --lr_rate 0.00005

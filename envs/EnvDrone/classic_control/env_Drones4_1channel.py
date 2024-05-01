@@ -167,7 +167,7 @@ class SearchGrid(gym.Env):
         self.reset()
         
     def raise_difficulty(self):
-        self.run_time = self.run_time + 4
+        self.run_time = self.run_time + 5
     
     def down_prob(self):
         self.prob = self.prob - 0.1
@@ -1389,7 +1389,7 @@ class SearchGrid(gym.Env):
         pad_width_x = desired_shape[1] - downsampled_map.shape[1]
 
         # Generate random padding widths for each side
-        np.random.seed(0)  # you can set the seed to make the random numbers reproducible
+        # np.random.seed(0)  # you can set the seed to make the random numbers reproducible
         random_pad_y1 = np.random.randint(0, pad_width_y + 1)
         random_pad_y2 = pad_width_y - random_pad_y1
         random_pad_x1 = np.random.randint(0, pad_width_x + 1)

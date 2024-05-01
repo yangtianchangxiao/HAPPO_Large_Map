@@ -1,6 +1,7 @@
 import numpy as np
 import gym
-import envs.EnvDrone.classic_control.env_Drones4_1channel as search_grid
+import envs.EnvDrone.classic_control.env_Drones2_sparse as search_grid
+# import envs.EnvDrone.classic_control.env_Drones4_1channel as search_grid
 class EnvCore(object):
     """
     # 环境中的智能体

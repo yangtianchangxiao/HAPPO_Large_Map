@@ -91,13 +91,13 @@ class Runner(object):
             # checkpoint_critic_optimizer = torch.load(self.log_dir_address + 'critic_optimizer' + str(agent_id) + '.pt')
             # po.actor.load_state_dict(checkpoint_actor)
             # po.critic.load_state_dict(checkpoint_critic)
-            
+            # print("!!! 加载模型")
             # lr_path = self.all_args.lr_path
             # critic_lr_path = self.all_args.critic_lr_path
-                # with open(lr_path, "r") as f:
-                #     po.lr = float(f.read().strip())
-                # with open(critic_lr_path, "r") as f:
-                #     po.critic_lr = float(f.read().strip())
+            # with open(lr_path, "r") as f:
+            #     po.lr = float(f.read().strip())
+            # with open(critic_lr_path, "r") as f:
+            #     po.critic_lr = float(f.read().strip())
             
             # po.actor_optimizer.load_state_dict(checkpoint_actor_optimizer)
             # po.critic_optimizer.load_state_dict(checkpoint_critic_optimizer)

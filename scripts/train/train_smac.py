@@ -36,8 +36,10 @@ import pickle
                 
             
             
-save_count = 1 # for gaussian_resnet
-cuda_device = "cuda:2"
+save_count = 1 # for sparse reward using np.sum
+# save_count = 2 # for sparse reward using last sum - current sum
+
+cuda_device = "cuda:1"
 # cuda_device = "cpu"
 """Train script for SMAC."""
 
@@ -133,7 +135,7 @@ def main(args):
         torch.set_num_threads(all_args.n_training_threads)
 
 
-    log_dir_address = '/home/cx/happo/mappo_result/gaussian_resnet_'+ str(save_count)
+    log_dir_address = '/home/cx/happo/mappo_result/sparse_'+ str(save_count)
     content_after_last_slash = log_dir_address.split('/')[-1]
 
     setproctitle.setproctitle(str(all_args.algorithm_name) + "-" + \

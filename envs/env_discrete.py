@@ -76,7 +76,7 @@ class DiscreteActionEnv(object):
         return np.stack(obs), np.stack(rews), np.stack(dones), infos, joint_maps, rescue_masks, available_actions
 
     def reset(self):
-        obs, joint_map, available_actions = self.env.reset()
+        obs, joint_map = self.env.reset()
         return np.stack(obs), np.stack(joint_map)
 
     def close(self):

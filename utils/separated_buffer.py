@@ -68,16 +68,16 @@ class SeparatedReplayBuffer(object):
     def insert(self, share_obs, obs, rnn_states, rnn_states_critic, actions, action_log_probs,
                value_preds, rewards, masks, rescue_masks=None, bad_masks=None, active_masks=None, available_actions=None):
         # print("Before !!!!!    self.share_obs reward", self.share_obs[self.step + 1 ].shape, share_obs.copy().shape, share_obs.copy().reshape(16, -1).shape)
-        self.share_obs[self.step + 1] = share_obs.copy().reshape(16, -1)
+        self.share_obs[self.step + 1] = share_obs.copy().reshape(32, -1)
         # print("self.share_obs reward", self.share_obs[self.step + 1 ].shape, share_obs.copy().shape, share_obs.copy().reshape(16, -1).shape)
         self.obs[self.step + 1] = obs.copy()
         self.rnn_states[self.step + 1] = None
         self.rnn_states_critic[self.step + 1] = None
         self.actions[self.step] = actions.copy()
-        self.rescue_masks[self.step] = rescue_masks.copy().reshape(16, -1) # 原本的 size 是（20，），改为 （20，1）
+        self.rescue_masks[self.step] = rescue_masks.copy().reshape(32, -1) # 原本的 size 是（20，），改为 （20，1）
         self.action_log_probs[self.step] = action_log_probs.copy()
         self.value_preds[self.step] = value_preds.copy()
-        self.rewards[self.step] = rewards.copy().reshape(16, -1)
+        self.rewards[self.step] = rewards.copy().reshape(32, -1)
         # self.masks[self.step + 1] = masks.copy()
         if bad_masks is not None:
             self.bad_masks[self.step + 1] = bad_masks.copy()

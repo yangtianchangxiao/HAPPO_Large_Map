@@ -18,7 +18,9 @@ class SMACRunner(Runner):
     def run(self):
         print("start run")
 
-
+        with open ("/home/cx/happo/envs/EnvDrone/classic_control/happo_sparse_reward.txt","w") as f:
+        # with open ("/home/cx/happo/envs/EnvDrone/classic_control/happo_sparse_reward_2.txt","w") as f:
+            pass
         self.warmup()   
 
         start = time.time()
@@ -31,7 +33,8 @@ class SMACRunner(Runner):
         last_average_reward = -1000
         best_episode = 0
         # 记录环境步数
-        env_run_time = 5
+        env_run_time = 5 # 不加载模型时
+        # env_run_time = 105 # 加载模型时
         target_find_list = []
         with SummaryWriter(log_dir=self.log_dir_address, comment='Reward per episode') as w:
             last_episode = 0
@@ -76,8 +79,8 @@ class SMACRunner(Runner):
                 # post process
                 total_num_steps = (episode + 1) * self.episode_length * self.n_rollout_threads
                 average_total_reward, average_reward_log = self.average_rewards()
-                for i in range(len(average_reward_log)):
-                    w.add_scalar('average reward', average_reward_log[i], i+last_episode)
+                # for i in range(len(average_reward_log)):
+                #     w.add_scalar('average reward', average_reward_log[i], i+last_episode)
 
                 # save model
                 if (episode % self.save_interval == 0 or episode == episodes - 1):
@@ -98,13 +101,18 @@ class SMACRunner(Runner):
                         print("self.env run time", env_run_time)
                        
                         # 课程学习部分：当连续100次没有提升时，增加环境难度
-                        if not_raise_time > 100:
+                        if not_raise_time > 35:
                             self.envs.raise_difficulty()
                             env_run_time += 5
                             # env_run_time = 300 if env_run_time > 300 else env_run_time
                             not_raise_time = 0
+                            with open ("/home/cx/happo/envs/EnvDrone/classic_control/happo_sparse_reward.txt","a") as f:
+                            # with open ("/home/cx/happo/envs/EnvDrone/classic_control/happo_sparse_reward_2.txt","a") as f:
+                                    f.write(str(last_average_reward)+"\n")
                             last_average_reward = -10
-                        if env_run_time > 300: # 当环境最大步数达到200时，停止训练
+                            
+                        # if env_run_time > 100: # 不加载模型时，当环境最大步数达到200时，停止训练
+                        if env_run_time > 250: # 加载模型时，当环境最大步数达到200时，停止训练
                             break
                         
 
